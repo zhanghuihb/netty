@@ -1,0 +1,3 @@
+com\burton\netty\websocket\ServerFrameHandler.class
+com\burton\netty\websocket\Server.class
+com\burton\netty\websocket\ServerChannelInitializer.class
