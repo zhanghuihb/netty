@@ -1,4 +1,4 @@
-package com.burton.netty.server.websocket;
+package com.burton.netty.server.tcpsocket;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -9,25 +9,23 @@ import java.time.LocalDateTime;
 
 
 /**
- * 处理文本协议数据，处理TextWebSocketFrame类型的数据，websocket专门处理文本的frame就是TextWebSocketFrame
+ * 处理文本协议数据
  *
  * @author Tainy
  * @date   2019-12-04 18:47
  */
-public class ServerFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+public class ServerFrameHandler extends SimpleChannelInboundHandler<String> {
+
+    public static String DELIMITER = "_#_";
     
     //读到客户端的内容并且向客户端去写内容
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
     
         Channel channel = ctx.channel();
     
-        System.out.println("收到客户端消息: " + msg.text());
-        
-        /**
-         * writeAndFlush接收的参数类型是Object类型，但是一般我们都是要传入管道中传输数据的类型，比如我们当前的demo
-         * 传输的就是TextWebSocketFrame类型的数据
-         */
+        System.out.println("收到客户端消息: " + msg);
+
         channel.writeAndFlush(new TextWebSocketFrame("服务时间："+ LocalDateTime.now()));
     }
     
